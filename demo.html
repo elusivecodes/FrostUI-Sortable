@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../FrostUI/dist/frost-ui.css">
+    <script src="../FrostUI/dist/frost-ui-bundle.js"></script>
+    <script src="dist/frost-ui-sortable.js"></script>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <ul class="list-group shadow-sm" id="sortable">
+            <li class="list-group-item">Item 1</li>
+            <li class="list-group-item">Item 2</li>
+            <li class="list-group-item">Item 3</li>
+            <li class="list-group-item">Item 4</li>
+            <li class="list-group-item">Item 5</li>
+        </ul>
+    </div>
+    <script>
+        const sortable = dom.findOne('#sortable');
+
+        UI.Sortable.init(sortable);
+    </script>
+</body>
+
+</html>
