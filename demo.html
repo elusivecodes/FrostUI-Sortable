@@ -12,18 +12,86 @@
 
 <body>
     <div class="container mt-5">
-        <ul class="list-group shadow-sm" id="sortable">
-            <li class="list-group-item">Item 1</li>
-            <li class="list-group-item">Item 2</li>
-            <li class="list-group-item">Item 3</li>
-            <li class="list-group-item">Item 4</li>
-            <li class="list-group-item">Item 5</li>
-        </ul>
+        <div class="mb-4">
+            <ul class="list-group shadow-sm" id="sortableDefault">
+                <li class="list-group-item">Item 1</li>
+                <li class="list-group-item">Item 2</li>
+                <li class="list-group-item">Item 3</li>
+                <li class="list-group-item">Item 4</li>
+            </ul>
+        </div>
+        <h4>Handle</h4>
+        <div class="mb-4">
+            <ul class="list-group shadow-sm" id="sortableHandle">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Item 1
+                    <span class="badge bg-secondary">Sort</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Item 2
+                    <span class="badge bg-secondary">Sort</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Item 3
+                    <span class="badge bg-secondary">Sort</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Item 4
+                    <span class="badge bg-secondary">Sort</span>
+                </li>
+            </ul>
+        </div>
+        <h4>Connected</h4>
+        <div class="mb-4">
+            <div class="row">
+                <div class="col-sm-6">
+                    <ul class="list-group shadow-sm" id="sortableConnected1">
+                        <li class="list-group-item">Item 1</li>
+                        <li class="list-group-item">Item 2</li>
+                        <li class="list-group-item">Item 3</li>
+                        <li class="list-group-item">Item 4</li>
+                    </ul>
+                </div>
+                <div class="col-sm-6">
+                    <ul class="list-group shadow-sm" id="sortableConnected2">
+                        <li class="list-group-item">Item 1</li>
+                        <li class="list-group-item">Item 2</li>
+                        <li class="list-group-item">Item 3</li>
+                        <li class="list-group-item">Item 4</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <h4>Containment</h4>
+        <div class="mb-4">
+            <ul class="list-group shadow-sm" id="sortableContainment">
+                <li class="list-group-item">Item 1</li>
+                <li class="list-group-item">Item 2</li>
+                <li class="list-group-item">Item 3</li>
+                <li class="list-group-item">Item 4</li>
+            </ul>
+        </div>
     </div>
     <script>
-        const sortable = dom.findOne('#sortable');
+        const sortableDefault = dom.findOne('#sortableDefault');
+        const sortableHandle = dom.findOne('#sortableHandle');
+        const sortableConnected1 = dom.findOne('#sortableConnected1');
+        const sortableConnected2 = dom.findOne('#sortableConnected2');
+        const sortableContainment = dom.findOne('#sortableContainment');
 
-        UI.Sortable.init(sortable);
+        UI.Sortable.init(sortableDefault);
+        UI.Sortable.init(sortableHandle, {
+            handle: '.badge'
+        });
+        UI.Sortable.init(sortableConnected1, {
+            connectWith: '#sortableConnected2'
+        });
+        UI.Sortable.init(sortableConnected2, {
+            connectWith: '#sortableConnected1'
+        });
+        UI.Sortable.init(sortableContainment, {
+            containment: '#sortableContainment'
+        });
     </script>
 </body>
 

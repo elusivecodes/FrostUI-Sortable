@@ -73,7 +73,7 @@ Object.assign(Sortable.prototype, {
             return target;
         }
 
-        return this.items().find(node => dom.contains(node, target));
+        return this.items().find(node => dom.hasDescendent(node, target));
     },
 
     /**

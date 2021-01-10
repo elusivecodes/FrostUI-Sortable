@@ -155,12 +155,16 @@
                         this.constructor.init(nearestSortable).items();
                     const nearestItem = this._findNearestItem(nearestItems, e.pageX, e.pageY);
 
+                    if (!nearestItem) {
+                        return;
+                    }
+
                     this._updatePlaceholder(nearestItem, e.pageX, e.pageY);
 
                     const newIndex = dom.index(this._placeholder);
 
                     if (!dom.isSame(nearestSortable, this._currentSortable)) {
-                        dom.triggerEvent(this._currentSortable, 'remove.ui.sortable', {
+                        dom.triggerEvent(this._currentSortable, 'send.ui.sortable', {
                             detail: {
                                 target: this._target,
                                 placeholder: this._placeholder
@@ -314,7 +318,7 @@
                 return target;
             }
 
-            return this.items().find(node => dom.contains(node, target));
+            return this.items().find(node => dom.hasDescendent(node, target));
         },
 
         /**
@@ -354,6 +358,8 @@
                     height: `${targetBox.height}px`
                 });
             }
+
+            dom.before(this._target, this._placeholder);
         },
 
         /**
@@ -375,8 +381,8 @@
 
             let targetX = targetBox.x;
             let targetY = targetBox.y;
-            this._offsetX = x - targetX;
-            this._offsetY = y - targetY;
+            this._offsetX = Math.abs(targetX - x);
+            this._offsetY = Math.abs(targetY - y);
 
             const appendTo = dom.findOne(this._settings.appendTo);
 

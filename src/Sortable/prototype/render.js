@@ -24,6 +24,8 @@ Object.assign(Sortable.prototype, {
                 height: `${targetBox.height}px`
             });
         }
+
+        dom.before(this._target, this._placeholder);
     },
 
     /**
@@ -45,8 +47,8 @@ Object.assign(Sortable.prototype, {
 
         let targetX = targetBox.x;
         let targetY = targetBox.y;
-        this._offsetX = x - targetX;
-        this._offsetY = y - targetY;
+        this._offsetX = Math.abs(targetX - x);
+        this._offsetY = Math.abs(targetY - y);
 
         const appendTo = dom.findOne(this._settings.appendTo);
 

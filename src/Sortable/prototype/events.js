@@ -45,12 +45,16 @@ Object.assign(Sortable.prototype, {
                     this.constructor.init(nearestSortable).items();
                 const nearestItem = this._findNearestItem(nearestItems, e.pageX, e.pageY);
 
+                if (!nearestItem) {
+                    return;
+                }
+
                 this._updatePlaceholder(nearestItem, e.pageX, e.pageY);
 
                 const newIndex = dom.index(this._placeholder);
 
                 if (!dom.isSame(nearestSortable, this._currentSortable)) {
-                    dom.triggerEvent(this._currentSortable, 'remove.ui.sortable', {
+                    dom.triggerEvent(this._currentSortable, 'send.ui.sortable', {
                         detail: {
                             target: this._target,
                             placeholder: this._placeholder
