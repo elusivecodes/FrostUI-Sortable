@@ -25,7 +25,7 @@ Object.assign(Sortable.prototype, {
                     startIndex = dom.index(this._target);
                     currentIndex = startIndex;
 
-                    dom.triggerEvent(this._node, 'start.ui.sortable', {
+                    dom.triggerEvent(this._node, 'sort.ui.sortable', {
                         detail: {
                             target: this._target
                         }
@@ -68,7 +68,7 @@ Object.assign(Sortable.prototype, {
                         }
                     });
                 } else if (currentIndex !== newIndex) {
-                    dom.triggerEvent(nearestSortable, 'change.ui.sortable', {
+                    dom.triggerEvent(nearestSortable, 'sorting.ui.sortable', {
                         detail: {
                             target: this._target,
                             placeholder: this._placeholder
@@ -92,7 +92,7 @@ Object.assign(Sortable.prototype, {
 
                 e.preventDefault();
 
-                dom.triggerEvent(this._currentSortable, 'stop.ui.sortable', {
+                dom.triggerEvent(this._currentSortable, 'sorted.ui.sortable', {
                     detail: {
                         target: this._target,
                         placeholder: this._placeholder

@@ -135,7 +135,7 @@
                         startIndex = dom.index(this._target);
                         currentIndex = startIndex;
 
-                        dom.triggerEvent(this._node, 'start.ui.sortable', {
+                        dom.triggerEvent(this._node, 'sort.ui.sortable', {
                             detail: {
                                 target: this._target
                             }
@@ -178,7 +178,7 @@
                             }
                         });
                     } else if (currentIndex !== newIndex) {
-                        dom.triggerEvent(nearestSortable, 'change.ui.sortable', {
+                        dom.triggerEvent(nearestSortable, 'sorting.ui.sortable', {
                             detail: {
                                 target: this._target,
                                 placeholder: this._placeholder
@@ -202,7 +202,7 @@
 
                     e.preventDefault();
 
-                    dom.triggerEvent(this._currentSortable, 'stop.ui.sortable', {
+                    dom.triggerEvent(this._currentSortable, 'sorted.ui.sortable', {
                         detail: {
                             target: this._target,
                             placeholder: this._placeholder
