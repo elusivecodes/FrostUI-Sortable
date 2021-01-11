@@ -55,6 +55,16 @@
         }
 
         /**
+         * Disable the Sortable.
+         * @returns {Sortable} The Sortable.
+         */
+        disable() {
+            this._enabled = false;
+
+            return this;
+        }
+
+        /**
          * Dispose the Sortable.
          */
         dispose() {
@@ -67,16 +77,6 @@
             this._currentSortable = null;
 
             super.dispose();
-        }
-
-        /**
-         * Disable the Sortable.
-         * @returns {Sortable} The Sortable.
-         */
-        disable() {
-            this._enabled = false;
-
-            return this;
         }
 
         /**

@@ -25,6 +25,16 @@ class Sortable extends UI.BaseComponent {
     }
 
     /**
+     * Disable the Sortable.
+     * @returns {Sortable} The Sortable.
+     */
+    disable() {
+        this._enabled = false;
+
+        return this;
+    }
+
+    /**
      * Dispose the Sortable.
      */
     dispose() {
@@ -37,16 +47,6 @@ class Sortable extends UI.BaseComponent {
         this._currentSortable = null;
 
         super.dispose();
-    }
-
-    /**
-     * Disable the Sortable.
-     * @returns {Sortable} The Sortable.
-     */
-    disable() {
-        this._enabled = false;
-
-        return this;
     }
 
     /**
