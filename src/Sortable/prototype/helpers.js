@@ -16,18 +16,18 @@ Object.assign(Sortable.prototype, {
         if (y < offsetY + this._settings.scrollSensitivity) {
             offsetY = Math.max(0, offsetY - this._settings.scrollSpeed);
         } else if (y > offsetY + dom.height(window) - this._settings.scrollSensitivity) {
-            const docHeight = dom.height(document);
-            offsetY = Math.min(docHeight, offsetY - this._settings.scrollSpeed);
+            const docHeight = dom.height(document, DOM.SCROLL_BOX);
+            offsetY = Math.min(docHeight, offsetY + this._settings.scrollSpeed);
         }
 
         if (x < offsetX + this._settings.scrollSensitivity) {
             offsetX = Math.max(0, offsetX - this._settings.scrollSpeed);
         } else if (x > offsetX + dom.width(window) - this._settings.scrollSensitivity) {
-            const docWidth = dom.width(document);
-            offsetX = Math.min(docWidth, offsetX - this._settings.scrollSpeed);
+            const docWidth = dom.width(document, DOM.SCROLL_BOX);
+            offsetX = Math.min(docWidth, offsetX + this._settings.scrollSpeed);
         }
 
-        dom.setScroll(offsetX, offsetY);
+        dom.setScroll(document, offsetX, offsetY);
     },
 
     /**

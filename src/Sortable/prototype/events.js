@@ -8,11 +8,31 @@ Object.assign(Sortable.prototype, {
      * Attach events for the Sortable.
      */
     _events() {
+        const checkScroll = Core.animation(pos => {
+            dom.hide(this._target);
+            this._checkScroll(pos.x, pos.y);
+            dom.show(this._target);
+        });
+
+        const getPosition = e => {
+            if ('touches' in e && e.touches.length) {
+                return {
+                    x: e.touches[0].pageX,
+                    y: e.touches[0].pageY
+                };
+            }
+
+            return {
+                x: e.pageX,
+                y: e.pageY
+            };
+        };
+
         let dragging, currentIndex, startIndex;
-        dom.addEventDelegate(this._node, 'mousedown.ui.sortable', this._selector, dom.mouseDragFactory(
+        dom.addEventDelegate(this._node, 'mousedown.ui.sortable touchstart.ui.sortable', this._selector, dom.mouseDragFactory(
             e => {
                 if (e.button || !this._enabled || dom.is(e.currentTarget, this._settings.cancel)) {
-                    return false;
+                    return;
                 }
 
                 e.preventDefault();
@@ -20,6 +40,8 @@ Object.assign(Sortable.prototype, {
                 this._target = this._findTarget(e.currentTarget);
             },
             e => {
+                const pos = getPosition(e);
+
                 if (!dragging) {
                     dragging = true;
                     startIndex = dom.index(this._target);
@@ -32,24 +54,25 @@ Object.assign(Sortable.prototype, {
                     });
 
                     this._buildPlaceholder();
-                    this._initTarget(e.pageX, e.pageY);
+
+                    this._initTarget(pos.x, pos.y);
 
                     this._currentSortable = this._node;
                 }
 
-                this._updateTarget(e.pageX, e.pageY);
+                this._updateTarget(pos.x, pos.y);
 
-                const nearestSortable = this._findNearestSortable(e.pageX, e.pageY);
+                const nearestSortable = this._findNearestSortable(pos.x, pos.y);
                 const nearestItems = dom.isSame(this._node, nearestSortable) ?
                     this.items() :
                     this.constructor.init(nearestSortable).items();
-                const nearestItem = this._findNearestItem(nearestItems, e.pageX, e.pageY);
+                const nearestItem = this._findNearestItem(nearestItems, pos.x, pos.y);
 
                 if (!nearestItem) {
                     return;
                 }
 
-                this._updatePlaceholder(nearestItem, e.pageX, e.pageY);
+                this._updatePlaceholder(nearestItem, pos.x, pos.y);
 
                 const newIndex = dom.index(this._placeholder);
 
@@ -81,7 +104,7 @@ Object.assign(Sortable.prototype, {
                 this._currentSortable = nearestSortable;
 
                 if (this._settings.scroll) {
-                    this._checkScroll(e.pageX, e.pageY);
+                    checkScroll(pos);
                 }
             },
             e => {

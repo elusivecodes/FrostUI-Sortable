@@ -118,11 +118,31 @@
          * Attach events for the Sortable.
          */
         _events() {
+            const checkScroll = Core.animation(pos => {
+                dom.hide(this._target);
+                this._checkScroll(pos.x, pos.y);
+                dom.show(this._target);
+            });
+
+            const getPosition = e => {
+                if ('touches' in e && e.touches.length) {
+                    return {
+                        x: e.touches[0].pageX,
+                        y: e.touches[0].pageY
+                    };
+                }
+
+                return {
+                    x: e.pageX,
+                    y: e.pageY
+                };
+            };
+
             let dragging, currentIndex, startIndex;
-            dom.addEventDelegate(this._node, 'mousedown.ui.sortable', this._selector, dom.mouseDragFactory(
+            dom.addEventDelegate(this._node, 'mousedown.ui.sortable touchstart.ui.sortable', this._selector, dom.mouseDragFactory(
                 e => {
                     if (e.button || !this._enabled || dom.is(e.currentTarget, this._settings.cancel)) {
-                        return false;
+                        return;
                     }
 
                     e.preventDefault();
@@ -130,6 +150,8 @@
                     this._target = this._findTarget(e.currentTarget);
                 },
                 e => {
+                    const pos = getPosition(e);
+
                     if (!dragging) {
                         dragging = true;
                         startIndex = dom.index(this._target);
@@ -142,24 +164,25 @@
                         });
 
                         this._buildPlaceholder();
-                        this._initTarget(e.pageX, e.pageY);
+
+                        this._initTarget(pos.x, pos.y);
 
                         this._currentSortable = this._node;
                     }
 
-                    this._updateTarget(e.pageX, e.pageY);
+                    this._updateTarget(pos.x, pos.y);
 
-                    const nearestSortable = this._findNearestSortable(e.pageX, e.pageY);
+                    const nearestSortable = this._findNearestSortable(pos.x, pos.y);
                     const nearestItems = dom.isSame(this._node, nearestSortable) ?
                         this.items() :
                         this.constructor.init(nearestSortable).items();
-                    const nearestItem = this._findNearestItem(nearestItems, e.pageX, e.pageY);
+                    const nearestItem = this._findNearestItem(nearestItems, pos.x, pos.y);
 
                     if (!nearestItem) {
                         return;
                     }
 
-                    this._updatePlaceholder(nearestItem, e.pageX, e.pageY);
+                    this._updatePlaceholder(nearestItem, pos.x, pos.y);
 
                     const newIndex = dom.index(this._placeholder);
 
@@ -191,7 +214,7 @@
                     this._currentSortable = nearestSortable;
 
                     if (this._settings.scroll) {
-                        this._checkScroll(e.pageX, e.pageY);
+                        checkScroll(pos);
                     }
                 },
                 e => {
@@ -261,18 +284,18 @@
             if (y < offsetY + this._settings.scrollSensitivity) {
                 offsetY = Math.max(0, offsetY - this._settings.scrollSpeed);
             } else if (y > offsetY + dom.height(window) - this._settings.scrollSensitivity) {
-                const docHeight = dom.height(document);
-                offsetY = Math.min(docHeight, offsetY - this._settings.scrollSpeed);
+                const docHeight = dom.height(document, DOM.SCROLL_BOX);
+                offsetY = Math.min(docHeight, offsetY + this._settings.scrollSpeed);
             }
 
             if (x < offsetX + this._settings.scrollSensitivity) {
                 offsetX = Math.max(0, offsetX - this._settings.scrollSpeed);
             } else if (x > offsetX + dom.width(window) - this._settings.scrollSensitivity) {
-                const docWidth = dom.width(document);
-                offsetX = Math.min(docWidth, offsetX - this._settings.scrollSpeed);
+                const docWidth = dom.width(document, DOM.SCROLL_BOX);
+                offsetX = Math.min(docWidth, offsetX + this._settings.scrollSpeed);
             }
 
-            dom.setScroll(offsetX, offsetY);
+            dom.setScroll(document, offsetX, offsetY);
         },
 
         /**
