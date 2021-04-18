@@ -32,7 +32,7 @@ Object.assign(Sortable.prototype, {
         dom.addEventDelegate(this._node, 'mousedown.ui.sortable touchstart.ui.sortable', this._selector, dom.mouseDragFactory(
             e => {
                 if (e.button || !this._enabled || dom.is(e.currentTarget, this._settings.cancel)) {
-                    return;
+                    return false;
                 }
 
                 e.preventDefault();
