@@ -1,5 +1,5 @@
 /**
- * FrostUI-Sortable v1.0
+ * FrostUI-Sortable v1.0.1
  * https://github.com/elusivecodes/FrostUI-Sortable
  */
 (function(global, factory) {
@@ -24,7 +24,6 @@
 
     const Core = window.Core;
     const dom = window.dom;
-    const QuerySet = window.QuerySet;
     const UI = window.UI;
     const document = window.document;
 
