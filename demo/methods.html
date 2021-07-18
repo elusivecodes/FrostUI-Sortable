@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FrostUI Sortable</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui/dist/frost-ui.css">
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui/dist/frost-ui-bundle.js"></script>
+    <script src="../dist/frost-ui-sortable.js"></script>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="mb-4">
+            <ul class="list-group shadow-sm" id="sortableDispose">
+                <li class="list-group-item">Item 1</li>
+                <li class="list-group-item">Item 2</li>
+                <li class="list-group-item">Item 3</li>
+                <li class="list-group-item">Item 4</li>
+            </ul>
+            <div class="mt-1">
+                <button class="btn btn-danger ripple mb-0" id="sortableDisposeBtn" type="button">Dispose</button>
+                <button class="btn btn-primary ripple mb-0" id="sortableInitBtn" type="button">Init</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const sortableDispose = dom.findOne('#sortableDispose');
+        const sortableDisposeBtn = dom.findOne('#sortableDisposeBtn');
+        const sortableInitBtn = dom.findOne('#sortableInitBtn');
+
+        UI.Sortable.init(sortableDispose);
+
+        dom.addEvent(sortableDisposeBtn, 'click', e => {
+            UI.Sortable.init(sortableDispose).dispose();
+        });
+
+        dom.addEvent(sortableInitBtn, 'click', e => {
+            UI.Sortable.init(sortableDispose);
+        });
+    </script>
+</body>
+
+</html>

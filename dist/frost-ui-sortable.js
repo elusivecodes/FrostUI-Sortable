@@ -1,5 +1,5 @@
 /**
- * FrostUI-Sortable v1.0.3
+ * FrostUI-Sortable v1.0.4
  * https://github.com/elusivecodes/FrostUI-Sortable
  */
 (function(global, factory) {
