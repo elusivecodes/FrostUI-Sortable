@@ -13,31 +13,45 @@
 <body>
     <div class="container mt-5">
         <div class="mb-4">
-            <ul class="list-group shadow-sm" id="sortableDispose">
+            <ul class="list-group shadow-sm" id="sortableDefault">
                 <li class="list-group-item">Item 1</li>
                 <li class="list-group-item">Item 2</li>
                 <li class="list-group-item">Item 3</li>
                 <li class="list-group-item">Item 4</li>
             </ul>
             <div class="mt-1">
-                <button class="btn btn-danger ripple mb-0" id="sortableDisposeBtn" type="button">Dispose</button>
-                <button class="btn btn-primary ripple mb-0" id="sortableInitBtn" type="button">Init</button>
+                <div class="btn-group">
+                    <button class="btn btn-primary ripple mb-0" id="sortableInit" type="button">Init</button>
+                    <button class="btn btn-danger ripple mb-0" id="sortableDispose" type="button">Dispose</button>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-success ripple mb-0" id="sortableEnable" type="button">Enable</button>
+                    <button class="btn btn-warning ripple mb-0" id="sortableDisable" type="button">Disable</button>
+                </div>
             </div>
         </div>
     </div>
     <script>
+        const sortableDefault = dom.findOne('#sortableDefault');
+        const sortableInit = dom.findOne('#sortableInit');
         const sortableDispose = dom.findOne('#sortableDispose');
-        const sortableDisposeBtn = dom.findOne('#sortableDisposeBtn');
-        const sortableInitBtn = dom.findOne('#sortableInitBtn');
+        const sortableEnable = dom.findOne('#sortableEnable');
+        const sortableDisable = dom.findOne('#sortableDisable');
 
-        UI.Sortable.init(sortableDispose);
-
-        dom.addEvent(sortableDisposeBtn, 'click', e => {
-            UI.Sortable.init(sortableDispose).dispose();
+        dom.addEvent(sortableInit, 'click', e => {
+            UI.Sortable.init(sortableDefault);
         });
 
-        dom.addEvent(sortableInitBtn, 'click', e => {
-            UI.Sortable.init(sortableDispose);
+        dom.addEvent(sortableDispose, 'click', e => {
+            UI.Sortable.init(sortableDefault).dispose();
+        });
+
+        dom.addEvent(sortableEnable, 'click', e => {
+            UI.Sortable.init(sortableDefault).enable();
+        });
+
+        dom.addEvent(sortableDisable, 'click', e => {
+            UI.Sortable.init(sortableDefault).disable();
         });
     </script>
 </body>
