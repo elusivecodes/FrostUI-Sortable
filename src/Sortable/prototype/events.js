@@ -14,20 +14,6 @@ Object.assign(Sortable.prototype, {
             dom.show(this._target);
         });
 
-        const getPosition = e => {
-            if ('touches' in e && e.touches.length) {
-                return {
-                    x: e.touches[0].pageX,
-                    y: e.touches[0].pageY
-                };
-            }
-
-            return {
-                x: e.pageX,
-                y: e.pageY
-            };
-        };
-
         let dragging, currentIndex, startIndex;
         dom.addEventDelegate(this._node, 'mousedown.ui.sortable touchstart.ui.sortable', this._selector, dom.mouseDragFactory(
             e => {
@@ -40,7 +26,7 @@ Object.assign(Sortable.prototype, {
                 this._target = this._findTarget(e.currentTarget);
             },
             e => {
-                const pos = getPosition(e);
+                const pos = UI.getPosition(e);
 
                 if (!dragging) {
                     dragging = true;
