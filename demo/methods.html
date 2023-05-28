@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FrostUI Sortable Methods</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@1.4.6/dist/frost-ui.css">
-    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@1.4.6/dist/frost-ui-bundle.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@2.3.1/dist/frost-ui.css">
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@2.3.1/dist/frost-ui-bundle.js"></script>
     <script src="../dist/frost-ui-sortable.js"></script>
 </head>
 
 <body>
     <div class="container mt-5">
         <div class="mb-4">
-            <ul class="list-group shadow-sm" id="sortableDefault">
+            <ul class="list-group" id="sortableDefault">
                 <li class="list-group-item">Item 1</li>
                 <li class="list-group-item">Item 2</li>
                 <li class="list-group-item">Item 3</li>
@@ -32,29 +32,29 @@
         </div>
     </div>
     <script>
-        const sortableDefault = dom.findOne('#sortableDefault');
-        const sortableInit = dom.findOne('#sortableInit');
-        const sortableDispose = dom.findOne('#sortableDispose');
-        const sortableEnable = dom.findOne('#sortableEnable');
-        const sortableDisable = dom.findOne('#sortableDisable');
+        const sortableDefault = $.findOne('#sortableDefault');
+        const sortableInit = $.findOne('#sortableInit');
+        const sortableDispose = $.findOne('#sortableDispose');
+        const sortableEnable = $.findOne('#sortableEnable');
+        const sortableDisable = $.findOne('#sortableDisable');
 
-        dom.addEvent(sortableInit, 'click', e => {
+        $.addEvent(sortableInit, 'click', e => {
             UI.Sortable.init(sortableDefault);
         });
 
-        dom.addEvent(sortableDispose, 'click', e => {
+        $.addEvent(sortableDispose, 'click', e => {
             UI.Sortable.init(sortableDefault).dispose();
         });
 
-        dom.addEvent(sortableEnable, 'click', e => {
+        $.addEvent(sortableEnable, 'click', e => {
             UI.Sortable.init(sortableDefault).enable();
         });
 
-        dom.addEvent(sortableDisable, 'click', e => {
+        $.addEvent(sortableDisable, 'click', e => {
             UI.Sortable.init(sortableDefault).disable();
         });
 
-        dom.triggerEvent(sortableInit, 'click');
+        $.triggerEvent(sortableInit, 'click');
     </script>
 </body>
 

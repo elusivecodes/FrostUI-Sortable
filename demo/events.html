@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FrostUI Sortable Events</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@1.4.6/dist/frost-ui.css">
-    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@1.4.6/dist/frost-ui-bundle.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@2.3.1/dist/frost-ui.css">
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@2.3.1/dist/frost-ui-bundle.js"></script>
     <script src="../dist/frost-ui-sortable.js"></script>
 </head>
 
@@ -16,7 +16,7 @@
             <div class="card mb-2">
                 <div class="card-body py-0 px-2 overflow-auto" id="events" style="height: 100px;"></div>
             </div>
-            <ul class="list-group shadow-sm" id="sortableEvents">
+            <ul class="list-group" id="sortableEvents">
                 <li class="list-group-item">Item 1</li>
                 <li class="list-group-item">Item 2</li>
                 <li class="list-group-item">Item 3</li>
@@ -25,19 +25,19 @@
         </div>
     </div>
     <script>
-        const sortableEvents = dom.findOne('#sortableEvents');
-        const events = dom.findOne('#events');
+        const sortableEvents = $.findOne('#sortableEvents');
+        const events = $.findOne('#events');
 
         UI.Sortable.init(sortableEvents);
 
-        dom.addEvent(sortableEvents, 'sort.ui.sortable sorting.ui.sortable sorted.ui.sortable update.ui.sortable', e => {
-            const div = dom.create('div', {
+        $.addEvent(sortableEvents, 'sort.ui.sortable sorting.ui.sortable sorted.ui.sortable update.ui.sortable', e => {
+            const div = $.create('div', {
                 html: `<small>"${e.type}" event triggered</small>`
             });
-            dom.append(events, div);
+            $.append(events, div);
 
-            const scrollHeight = dom.height(events, DOM.SCROLL_BOX);
-            dom.setScrollY(events, scrollHeight);
+            const scrollHeight = $.height(events, { boxSize: $.SCROLL_BOX });
+            $.setScrollY(events, scrollHeight);
         });
     </script>
 </body>

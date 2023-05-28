@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FrostUI Sortable</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@1.4.6/dist/frost-ui.css">
-    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@1.4.6/dist/frost-ui-bundle.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@2.3.1/dist/frost-ui.css">
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@2.3.1/dist/frost-ui-bundle.js"></script>
     <script src="../dist/frost-ui-sortable.js"></script>
 </head>
 
 <body>
     <div class="container mt-5">
         <div class="mb-4">
-            <ul class="list-group shadow-sm" id="sortableDefault">
+            <ul class="list-group" id="sortableDefault">
                 <li class="list-group-item">Item 1</li>
                 <li class="list-group-item">Item 2</li>
                 <li class="list-group-item">Item 3</li>
@@ -23,7 +23,7 @@
 
         <h4>Handle</h4>
         <div class="mb-4">
-            <ul class="list-group shadow-sm" id="sortableHandle" data-ui-handle=".badge" data-ui-cursor="grab">
+            <ul class="list-group" id="sortableHandle" data-ui-handle=".badge" data-ui-cursor="grab">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Item 1
                     <span class="badge bg-secondary">Sort</span>
@@ -47,7 +47,7 @@
         <div class="mb-4">
             <div class="row">
                 <div class="col-sm-6">
-                    <ul class="list-group shadow-sm" id="sortableConnected1" data-ui-connect-with="#sortableConnected2">
+                    <ul class="list-group mb-2" id="sortableConnected1" data-ui-connect-with="#sortableConnected2">
                         <li class="list-group-item">Item 1</li>
                         <li class="list-group-item">Item 2</li>
                         <li class="list-group-item">Item 3</li>
@@ -55,7 +55,7 @@
                     </ul>
                 </div>
                 <div class="col-sm-6">
-                    <ul class="list-group shadow-sm" id="sortableConnected2" data-ui-connect-with="#sortableConnected1">
+                    <ul class="list-group v" id="sortableConnected2" data-ui-connect-with="#sortableConnected1">
                         <li class="list-group-item">Item 1</li>
                         <li class="list-group-item">Item 2</li>
                         <li class="list-group-item">Item 3</li>
@@ -64,29 +64,17 @@
                 </div>
             </div>
         </div>
-
-        <h4>Containment</h4>
-        <div class="mb-4">
-            <ul class="list-group shadow-sm" id="sortableContainment" data-ui-containment="#sortableContainment">
-                <li class="list-group-item">Item 1</li>
-                <li class="list-group-item">Item 2</li>
-                <li class="list-group-item">Item 3</li>
-                <li class="list-group-item">Item 4</li>
-            </ul>
-        </div>
     </div>
     <script>
-        const sortableDefault = dom.findOne('#sortableDefault');
-        const sortableHandle = dom.findOne('#sortableHandle');
-        const sortableConnected1 = dom.findOne('#sortableConnected1');
-        const sortableConnected2 = dom.findOne('#sortableConnected2');
-        const sortableContainment = dom.findOne('#sortableContainment');
+        const sortableDefault = $.findOne('#sortableDefault');
+        const sortableHandle = $.findOne('#sortableHandle');
+        const sortableConnected1 = $.findOne('#sortableConnected1');
+        const sortableConnected2 = $.findOne('#sortableConnected2');
 
         UI.Sortable.init(sortableDefault);
         UI.Sortable.init(sortableHandle);
         UI.Sortable.init(sortableConnected1);
         UI.Sortable.init(sortableConnected2);
-        UI.Sortable.init(sortableContainment);
     </script>
 </body>
 
