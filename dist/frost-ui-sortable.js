@@ -78,10 +78,6 @@
                 return false;
             }
 
-            if (e.type === 'mousedown') {
-                e.preventDefault();
-            }
-
             this._target = this._options.handle ?
                 this.items().find((node) => $.hasDescendent(node, e.currentTarget)) :
                 e.currentTarget;
